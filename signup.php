@@ -1,70 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sign Up</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", sans-serif;
-            background: #f5f5f5;
-        }
+<meta charset="UTF-8">
+<title>Sign Up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    :root {
+        --accent: #2b2b2b;      /* main color */
+        --accent-light: #4a4a4a;
+        --bg1: #f7f7f7;
+        --bg2: #ececec;
+    }
 
-        .container {
-            width: 400px;
-            margin: 120px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+    body {
+        margin: 0;
+        font-family: system-ui, "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, var(--bg1), var(--bg2));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
+    .container {
+        width: 330px;
+        background: #fff;
+        padding: 26px;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        animation: fadeIn 0.4s ease;
+    }
 
-        .input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 14px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
 
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background: #333;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
-        }
+    h2 {
+        margin: 0 0 6px;
+        font-size: 24px;
+        color: var(--accent);
+        font-weight: 700;
+    }
 
-        .btn:hover {
-            background: #555;
-        }
+    .tagline {
+        margin: 0 0 18px;
+        font-size: 14px;
+        color: #777;
+    }
 
-        a {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    .input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        box-sizing: border-box;
+        transition: 0.2s;
+    }
 
-        .small {
-            margin-top: 12px;
-        }
-    </style>
+    .input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 6px rgba(0,0,0,0.07);
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .btn:hover {
+        background: var(--accent-light);
+        transform: translateY(-2px);
+    }
+
+    .small {
+        margin-top: 14px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
 
 <div class="container">
     <h2>Create Account</h2>
+    <p class="tagline">Join your wardrobe journey</p>
 
     <form id="signupForm" action="signup-handler.php" method="POST">
         <input type="text" name="name" class="input" placeholder="Full Name" required>
@@ -74,7 +115,9 @@
         <button class="btn" type="submit">Sign Up</button>
     </form>
 
-    <p class="small">Already have an account? <a href="login.php">Login</a></p>
+    <p class="small">
+        Already have an account? <a href="login.php">Login</a>
+    </p>
 </div>
 
 <script>
