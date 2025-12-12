@@ -138,11 +138,11 @@ if (!isset($_SESSION['user_id'])) {
   <h2>Add Clothing Item</h2>
   <p class="sub">Fill in the details to add a new piece to your wardrobe.</p>
 
-  <form action="add-handler.php" method="POST">
+  <form id="addForm" action="add-handler.php" method="POST">
     
     <div class="full">
       <label for="dress_type">Dress Type</label>
-      <select name="dress_type" id="dress_type" required>
+      <select name="dress_type" id="dress_type">
         <option value="">— Choose type —</option>
         <option>Shirt</option>
         <option>T-Shirt</option>
@@ -161,17 +161,17 @@ if (!isset($_SESSION['user_id'])) {
 
     <div>
       <label for="dress_name">Dress Name</label>
-      <input type="text" id="dress_name" name="dress_name" required>
+      <input type="text" id="dress_name" name="dress_name">
     </div>
 
     <div>
       <label for="color">Color</label>
-      <input type="text" id="color" name="color" required>
+      <input type="text" id="color" name="color">
     </div>
 
     <div>
       <label for="wash_type">Wash Type</label>
-      <select id="wash_type" name="wash_type" required>
+      <select id="wash_type" name="wash_type">
         <option value="">— Select wash —</option>
         <option>Hand Wash</option>
         <option>Machine Wash</option>
@@ -182,12 +182,12 @@ if (!isset($_SESSION['user_id'])) {
 
     <div>
       <label for="wear_count">Wear Count</label>
-      <input type="number" id="wear_count" name="wear_count" min="0" value="0" required>
+      <input type="number" id="wear_count" name="wear_count" min="0" value="0">
     </div>
 
     <div class="full">
       <label for="occasion">Occasion</label>
-      <select id="occasion" name="occasion" required>
+      <select id="occasion" name="occasion">
         <option value="">— Select occasion —</option>
         <option>Casual</option>
         <option>Formal</option>
@@ -202,5 +202,63 @@ if (!isset($_SESSION['user_id'])) {
 
   </form>
 </main>
+
+<script>
+/* Basic form validation for add item form */
+document.getElementById('addForm').addEventListener('submit', function(e) {
+  const dressType = document.getElementById('dress_type').value.trim();
+  const dressName = document.getElementById('dress_name').value.trim();
+  const color = document.getElementById('color').value.trim();
+  const washType = document.getElementById('wash_type').value.trim();
+  const wearCountRaw = document.getElementById('wear_count').value;
+  const occasion = document.getElementById('occasion').value.trim();
+
+  // 1. Dress type selected
+  if (dressType === '') {
+    alert('Please choose a dress type.');
+    e.preventDefault();
+    return;
+  }
+
+  // 2. Dress name not empty
+  if (dressName.length === 0) {
+    alert('Please enter a dress name.');
+    e.preventDefault();
+    return;
+  }
+
+  // 3. Color not empty
+  if (color.length === 0) {
+    alert('Please enter a color.');
+    e.preventDefault();
+    return;
+  }
+
+  // 4. Wash type selected
+  if (washType === '') {
+    alert('Please select a wash type.');
+    e.preventDefault();
+    return;
+  }
+
+  // 5. Wear count is a non-negative integer
+  const wearCount = Number(wearCountRaw);
+  if (!Number.isFinite(wearCount) || isNaN(wearCount) || wearCount < 0) {
+    alert('Please enter a valid wear count (0 or greater).');
+    e.preventDefault();
+    return;
+  }
+
+  // 6. Occasion selected
+  if (occasion === '') {
+    alert('Please select an occasion.');
+    e.preventDefault();
+    return;
+  }
+
+  // All checks passed → form will submit
+});
+</script>
+
 </body>
 </html>
