@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2025 at 05:16 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Dec 11, 2025 at 09:55 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,19 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `items`
+-- Table structure for table `clothes`
 --
 
-CREATE TABLE `items` (
+CREATE TABLE `clothes` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `color` varchar(50) NOT NULL,
-  `size` varchar(10) NOT NULL,
-  `season` varchar(20) NOT NULL,
-  `occasion` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `dress_type` varchar(100) NOT NULL,
+  `dress_name` varchar(150) NOT NULL,
+  `color` varchar(100) NOT NULL,
+  `wash_type` varchar(50) NOT NULL,
+  `wear_count` int(11) NOT NULL DEFAULT 0,
+  `occasion` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clothes`
+--
+
+INSERT INTO `clothes` (`id`, `user_id`, `dress_type`, `dress_name`, `color`, `wash_type`, `wear_count`, `occasion`, `created_at`) VALUES
+(1, 1, 'Shirt', 'Allen Solly', 'Red', 'Machine Wash', 2, 'Casual', '2025-12-11 17:56:37');
 
 -- --------------------------------------------------------
 
@@ -49,18 +57,24 @@ CREATE TABLE `users` (
   `name` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
+(1, 'Jithin  Mathew', 'jithin@gmail.com', '$2y$10$IZ9mr2VDtfPRJphUGB2dEeTZEG7F9xw5ODwVFOk5p.Gw8vYX/GqJC');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `items`
+-- Indexes for table `clothes`
 --
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+ALTER TABLE `clothes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -74,26 +88,16 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `items`
+-- AUTO_INCREMENT for table `clothes`
 --
-ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `clothes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `items`
---
-ALTER TABLE `items`
-  ADD CONSTRAINT `items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
