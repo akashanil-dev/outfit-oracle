@@ -108,9 +108,9 @@
     <p class="tagline">Join your wardrobe journey</p>
 
     <form id="signupForm" action="signup-handler.php" method="POST">
-        <input type="text" name="name" class="input" placeholder="Full Name" required>
-        <input type="email" name="email" class="input" placeholder="Email" required>
-        <input type="password" name="password" id="password" class="input" placeholder="Password" required>
+        <input type="text" name="name" class="input" placeholder="Full Name">
+        <input type="email" name="email" class="input" placeholder="Email">
+        <input type="password" name="password" id="password" class="input" placeholder="Password">
 
         <button class="btn" type="submit">Sign Up</button>
     </form>
@@ -122,13 +122,42 @@
 
 <script>
 document.getElementById('signupForm').addEventListener('submit', function(e){
-    const pwd = document.getElementById('password').value;
-    if(pwd.length < 6){
+
+    const name = document.querySelector('input[name="name"]').value.trim();
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const password = document.getElementById('password').value;
+
+    // 1️⃣ Name validation
+    if (name.length === 0) {
+        alert("Please enter your full name.");
+        e.preventDefault();
+        return;
+    }
+
+    // 2️⃣ Email format validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        e.preventDefault();
+        return;
+    }
+
+    // 3️⃣ Password length validation
+    if (password.length < 6) {
         alert("Password must be at least 6 characters long.");
         e.preventDefault();
+        return;
     }
+
 });
 </script>
+
+
+<?php if (isset($_GET['error']) && $_GET['error'] === 'email_exists'): ?>
+<script>
+    alert("This email is already registered. Try logging in or use a different email.");
+</script>
+<?php endif; ?>
 
 </body>
 </html>

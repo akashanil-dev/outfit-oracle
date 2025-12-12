@@ -21,7 +21,8 @@ $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 // Check if email already exists
 $check = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
 if (mysqli_num_rows($check) > 0) {
-    die("Email already registered.");
+    header("Location: signup.php?error=email_exists");
+    exit();
 }
 
 // Insert into database

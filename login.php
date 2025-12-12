@@ -108,8 +108,8 @@
     <p class="tagline">Login to your wardrobe</p>
 
     <form action="login-handler.php" method="POST">
-        <input type="email" name="email" class="input" placeholder="Email" required>
-        <input type="password" name="password" class="input" placeholder="Password" required>
+        <input type="email" name="email" class="input" placeholder="Email">
+        <input type="password" name="password" class="input" placeholder="Password">
         <button class="btn" type="submit">Login</button>
     </form>
 
@@ -117,6 +117,48 @@
         Don't have an account? <a href="signup.php">Create one</a>
     </p>
 </div>
+
+<script>
+document.querySelector("form").addEventListener("submit", function(e) {
+
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const password = document.querySelector('input[name="password"]').value;
+
+    // 1️⃣ Email cannot be empty
+    if (email.length === 0) {
+        alert("Please enter your email.");
+        e.preventDefault();
+        return;
+    }
+
+    // 2️⃣ Email must be valid format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        e.preventDefault();
+        return;
+    }
+
+    // 3️⃣ Password cannot be empty
+    if (password.length === 0) {
+        alert("Please enter your password.");
+        e.preventDefault();
+        return;
+    }
+
+});
+</script>
+
+<?php if (isset($_GET['error'])): ?>
+<script>
+    <?php if ($_GET['error'] === 'no_account'): ?>
+        alert("No account found with this email.");
+    <?php elseif ($_GET['error'] === 'wrong_password'): ?>
+        alert("Incorrect password. Please try again.");
+    <?php endif; ?>
+</script>
+<?php endif; ?>
+
 
 </body>
 </html>
